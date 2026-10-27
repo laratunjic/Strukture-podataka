@@ -192,35 +192,15 @@ int writeToFile(Position Head) {
 
 int readFromFile(Position Head) {
     FILE* fp;
-    Position p = Head;
-    Position newPerson;
+   Person person;
 
     fp = fopen("osobe.txt", "r");
 
     if (fp == NULL)
         return 0;
 
-    while (p->next != NULL)
-        p = p->next;
-
-    while (1) {
-        newPerson = (Position)malloc(sizeof(Person));
-
-        if (newPerson == NULL) {
-            fclose(fp);
-            return 0;
-        }
-
-        if (fscanf(fp, "%29s %29s %d", newPerson->name, newPerson->lastN, &newPerson->year) != 3) {
-            free(newPerson);
-            break;
-        }
-
-        newPerson->next = NULL;
-        insertAfter(p, newPerson);
-        p = newPerson;
-    }
-
+        while (fscanf(fp, "%29s %29s %d", person.name, person.lastN, &person.year) == 3);
+        
     fclose(fp);
 
     return 1;
